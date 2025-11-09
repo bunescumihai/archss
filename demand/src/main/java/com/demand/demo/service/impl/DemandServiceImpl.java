@@ -12,6 +12,9 @@ import com.demand.demo.service.OwnerGetter;
 import com.demand.demo.service.ProductGetter;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DemandServiceImpl implements DemandService {
 
     private final OwnerGetter ownerGetter;
@@ -28,12 +31,12 @@ public class DemandServiceImpl implements DemandService {
     @Override
     public Demand create(CreateDemandDto createDemandDto) {
         Owner owner = ownerGetter.getOwnerById(createDemandDto.getOwnerId());
-        if(owner == null) {
+        if (owner == null) {
             throw new IllegalArgumentException("Owner not found with id: " + createDemandDto.getOwnerId());
         }
 
         Product product = productGetter.getProductById(createDemandDto.getProductId());
-        if(product == null) {
+        if (product == null) {
             throw new IllegalArgumentException("Product not found with id: " + createDemandDto.getProductId());
         }
 
@@ -62,12 +65,12 @@ public class DemandServiceImpl implements DemandService {
     public GetDemandDto getDemandById(Long id) {
         System.out.println("Fetching demand with id: " + id);
         Demand demand = repositoryMediator.getDemandRepository().findById(id).orElse(null);
-        if(demand == null) {
+        if (demand == null) {
             return null;
         }
 
         BuyerProfile buyerProfile = repositoryMediator.getBuyerRepository().findById(demand.getBuyerProfileId()).orElse(null);
-        if(buyerProfile == null) {
+        if (buyerProfile == null) {
             return null;
         }
 
@@ -82,6 +85,47 @@ public class DemandServiceImpl implements DemandService {
         getDemandDto.setBuyerData(ownerGetter.getOwnerById(buyerProfile.getOwnerId()));
 
         return getDemandDto;
+    }
+
+    @Override
+    public List<GetDemandDto> getAll() {
+        System.out.println("Fetching all demands");
+        List<Demand> demands = repositoryMediator.getDemandRepository().findAll();
+        List<GetDemandDto> result = new ArrayList<>();
+
+        for (Demand demand : demands) {
+            BuyerProfile buyerProfile = repositoryMediator.getBuyerRepository().findById(demand.getBuyerProfileId()).orElse(null);
+            if (buyerProfile == null) {
+                System.out.println("Skipping demand " + demand.getId() + " because buyer profile not found");
+                continue;
+            }
+
+            Product product = productGetter.getProductById(demand.getProductId());
+            if (product == null) {
+                System.out.println("Skipping demand " + demand.getId() + " because product not found");
+                continue;
+            }
+
+            Owner owner = ownerGetter.getOwnerById(buyerProfile.getOwnerId());
+            if (owner == null) {
+                System.out.println("Skipping demand " + demand.getId() + " because owner not found");
+                continue;
+            }
+
+            GetDemandDto dto = new GetDemandDto();
+            dto.setId(demand.getId());
+            dto.setTitle(demand.getTitle());
+            dto.setQuantity(demand.getQuantity());
+            dto.setProduct(product);
+            dto.setStatus(demand.getStatus());
+            dto.setValidUntil(demand.getValidUntil());
+            dto.setBuyerProfile(buyerProfile);
+            dto.setBuyerData(owner);
+
+            result.add(dto);
+        }
+
+        return result;
     }
 
     @Override

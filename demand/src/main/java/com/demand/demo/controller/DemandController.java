@@ -6,6 +6,8 @@ import com.demand.demo.entity.Demand;
 import com.demand.demo.service.DemandService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/demands")
 public class DemandController {
@@ -22,8 +24,8 @@ public class DemandController {
     }
 
     @GetMapping
-    public String getAllDemands() {
-        return "List of demands";
+    public List<GetDemandDto> getAllDemands() {
+        return demandService.getAll();
     }
 
     @GetMapping("/{id}")
