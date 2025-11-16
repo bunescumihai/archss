@@ -5,6 +5,7 @@ import com.inventory.demo.entity.Owner;
 import com.inventory.demo.mediator.MapperMediator;
 import com.inventory.demo.mediator.RepositoryMediator;
 import com.inventory.demo.service.OwnerService;
+import com.inventory.demo.service.producer.OwnerProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Autowired
     private RepositoryMediator repositoryMediator;
+
+    @Autowired
+    private OwnerProducer ownerProducer;
 
     @Autowired
     private MapperMediator mapperMediator;
@@ -31,7 +35,9 @@ public class OwnerServiceImpl implements OwnerService {
     @Transactional
     public Owner save(OwnerCreateDto ownerCreateDto) {
         Owner owner = mapperMediator.getOwnerMapper().toEntity(ownerCreateDto);
-        return repositoryMediator.getOwnerRepository().save(owner);
+        owner = repositoryMediator.getOwnerRepository().save(owner);
+        ownerProducer.send(owner);
+        return owner;
     }
 
     public Owner update(Long id, Owner updated) {

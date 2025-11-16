@@ -1,8 +1,8 @@
 package com.demand.demo.dto;
 
 import com.demand.demo.entity.BuyerProfile;
-import com.demand.demo.entity.Owner;
-import com.demand.demo.entity.Product;
+import com.inventory.demo.entity.Owner;
+import com.inventory.demo.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -5,6 +5,7 @@ import com.inventory.demo.entity.Product;
 import com.inventory.demo.mediator.MapperMediator;
 import com.inventory.demo.mediator.RepositoryMediator;
 import com.inventory.demo.service.ProductService;
+import com.inventory.demo.service.producer.ProductProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private RepositoryMediator repositoryMediator;
+
+    @Autowired
+    private ProductProducer productProducer;
 
     @Autowired
     private MapperMediator mapperMediator;
@@ -31,7 +35,9 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product save(ProductCreateDto productCreateDto) {
         Product product = mapperMediator.getProductMapper().toEntity(productCreateDto);
-        return repositoryMediator.getProductRepository().save(product);
+        product = repositoryMediator.getProductRepository().save(product);
+        productProducer.send(product);
+        return product;
     }
 
     public Product update(Long id, Product updated) {

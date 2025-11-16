@@ -30,7 +30,6 @@ public class DemandController {
 
     @GetMapping("/{id}")
     public GetDemandDto getById(@PathVariable Long id) {
-        System.out.println("Fetching demand with ID: " + id);
         return demandService.getDemandById(id);
     }
 

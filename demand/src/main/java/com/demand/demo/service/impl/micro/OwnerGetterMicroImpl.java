@@ -1,6 +1,6 @@
 package com.demand.demo.service.impl.micro;
 
-import com.demand.demo.entity.Owner;
+import com.inventory.demo.entity.Owner;
 import com.demand.demo.service.OwnerGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.client.RestClient;

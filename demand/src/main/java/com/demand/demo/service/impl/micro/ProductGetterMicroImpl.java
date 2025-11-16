@@ -1,6 +1,6 @@
 package com.demand.demo.service.impl.micro;
 
-import com.demand.demo.entity.Product;
+import com.inventory.demo.entity.Product;
 import com.demand.demo.service.ProductGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.client.RestClient;

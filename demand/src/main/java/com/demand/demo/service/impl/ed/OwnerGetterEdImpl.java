@@ -1,6 +1,6 @@
 package com.demand.demo.service.impl.ed;
 
-import com.demand.demo.entity.Owner;
+import com.inventory.demo.entity.Owner;
 import com.demand.demo.mediator.RepositoryMediator;
 import com.demand.demo.service.OwnerGetter;
 

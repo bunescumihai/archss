@@ -1,4 +1,4 @@
-package com.inventory.demo.repository;
+package com.demand.demo.repository;
 
 import com.inventory.demo.entity.Owner;
 import org.springframework.data.jpa.repository.JpaRepository;

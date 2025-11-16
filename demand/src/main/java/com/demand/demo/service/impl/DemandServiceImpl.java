@@ -2,8 +2,8 @@ package com.demand.demo.service.impl;
 
 import com.demand.demo.dto.CreateDemandDto;
 import com.demand.demo.dto.GetDemandDto;
-import com.demand.demo.entity.Owner;
-import com.demand.demo.entity.Product;
+import com.inventory.demo.entity.Owner;
+import com.inventory.demo.entity.Product;
 import com.demand.demo.entity.BuyerProfile;
 import com.demand.demo.entity.Demand;
 import com.demand.demo.mediator.RepositoryMediator;

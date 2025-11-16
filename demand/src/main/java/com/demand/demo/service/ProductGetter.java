@@ -1,6 +1,6 @@
 package com.demand.demo.service;
 
-import com.demand.demo.entity.Product;
+import com.inventory.demo.entity.Product;
 
 import java.util.List;
 

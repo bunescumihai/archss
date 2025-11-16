@@ -1,4 +1,4 @@
-package com.demand.demo.entity;
+package com.inventory.demo.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
