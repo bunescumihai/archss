@@ -5,11 +5,11 @@ import com.demand.demo.service.OwnerGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.client.RestClient;
 
-public class OwnerGetterImpl implements OwnerGetter {
+public class OwnerGetterMicroImpl implements OwnerGetter {
 
     private final RestClient restClient;
 
-    public OwnerGetterImpl(@Qualifier("inventoryService") RestClient restClient) {
+    public OwnerGetterMicroImpl(@Qualifier("inventoryService") RestClient restClient) {
         this.restClient = restClient;
     }
 

@@ -5,11 +5,11 @@ import com.demand.demo.service.ProductGetter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.client.RestClient;
 
-public class ProductGetterImpl implements ProductGetter {
+public class ProductGetterMicroImpl implements ProductGetter {
 
     private final RestClient inventoryService;
 
-    public ProductGetterImpl(@Qualifier("inventoryService") RestClient inventoryService) {
+    public ProductGetterMicroImpl(@Qualifier("inventoryService") RestClient inventoryService) {
         this.inventoryService = inventoryService;
     }
 
